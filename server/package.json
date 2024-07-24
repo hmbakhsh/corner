@@ -3,16 +3,21 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun build --target=node ./index.ts --outdir ./dist --watch"
+    "build": "bun build --target=node ./src/index.ts --outdir ./dist --watch",
+    "migrate": "npx drizzle-kit generate && npx drizzle-kit migrate"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/pg": "^8.11.6",
+    "drizzle-kit": "^0.23.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@types/express": "^4.17.21",
-    "express": "^4.19.2"
+    "drizzle-orm": "^0.32.1",
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
   }
 }
