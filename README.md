@@ -30,7 +30,7 @@ Considerations:
 - Backend: Express
 - Database: PostgreSQL, Drizzle
 
-### tools
+### tools
 - Drag/Resize Elements: React-RND
 - Website Screenshots: APIFlash OR OpenGraph.XYZ (Metadata & Media Thumbnails)
 - Transcription: OpenAI Whisper
