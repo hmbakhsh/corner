@@ -1,10 +1,14 @@
 
-## Corner
+## corner
 ### a tool to organise your thoughts and ideas
+[corner ui preview](./assets/mock_ui.png)
 we all have way too many links bookmarked away, screenshots lying around in our camera roll & unprocessed thoughts. corner is your all-in-one place to plan your next study session, draw out your next startup or design your new bedroom.
 
 
-#### Core Functionality / Features
+### project structure
+
+
+### core functionality / features
 - Corner Library
 - A "Corner": Infinite Canvas
 - Canvas Primitive Elements
@@ -18,16 +22,16 @@ Considerations:
 - Defaults for Z-Index of Elements?
 - Publishing/sharing?
 
-#### Database Diagram 
+### database diagram 
 [Insert Entity Relationship Diagram]
 
-#### Stack
+### stack
 - Language: Typescript
 - Frontend: React, Tailwind
 - Backend: Express
 - Database: PostgreSQL, Drizzle
 
-#### Tools:
+### tools:
 - Drag/Resize Elements: React-RND
 - Website Screenshots: APIFlash OR OpenGraph.XYZ (Metadata & Media Thumbnails)
 - Transcription: OpenAI Whisper
