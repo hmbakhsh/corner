@@ -5,7 +5,7 @@ we all have way too many links bookmarked away, screenshots lying around in our 
 
 
 ### project structure
-
+[Insert Project Structure Image]
 
 ### core functionality / features
 - Corner Library
@@ -22,7 +22,7 @@ Considerations:
 - Publishing/sharing?
 
 ### database diagram 
-[Insert Entity Relationship Diagram]
+![database entity relationship diagram](./assets/db_erd.png)
 
 ### stack
 - Language: Typescript
@@ -30,7 +30,7 @@ Considerations:
 - Backend: Express
 - Database: PostgreSQL, Drizzle
 
-### tools:
+### tools
 - Drag/Resize Elements: React-RND
 - Website Screenshots: APIFlash OR OpenGraph.XYZ (Metadata & Media Thumbnails)
 - Transcription: OpenAI Whisper
