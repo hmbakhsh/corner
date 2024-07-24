@@ -1,7 +1,7 @@
 
 ## corner
 ### a tool to organise your thoughts and ideas
-[corner ui preview](./assets/mock_ui.png)
+![corner ui preview](./assets/mock_ui.png)
 we all have way too many links bookmarked away, screenshots lying around in our camera roll & unprocessed thoughts. corner is your all-in-one place to plan your next study session, draw out your next startup or design your new bedroom.
 
 
