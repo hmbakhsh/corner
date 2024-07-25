@@ -1,12 +1,44 @@
 import { relations } from "drizzle-orm";
 import {
 	integer,
+	pgEnum,
 	pgTable,
+	real,
 	serial,
+	text,
 	timestamp,
 	varchar,
 } from "drizzle-orm/pg-core";
 
+// ENUM INITILIASATIONS
+// ---------------------------
+// * Corners Table: "corner_theme" field ENUM
+export const cornerThemeEnum = pgEnum("corner_theme", [
+	"pink",
+	"purple",
+	"blue",
+	"green",
+	"grey",
+]);
+// * Primitives Table: "primitive_type" field ENUM
+export const primitiveTypeEnum = pgEnum("primitive_type", [
+	"text",
+	"shape",
+	"image",
+	"link",
+	"embed",
+]);
+
+export const shapeTypeEnum = pgEnum("shape_type", [
+	"rectangle",
+	"circle",
+	"arrow",
+]);
+
+export const embedTypeEnum = pgEnum("embed_type", ["youtube", "spotify"]);
+
+// TABLE SCHEMAS
+// ---------------------------
 // * Table Schema: Users
 export const users = pgTable("users", {
 	id: serial("id").primaryKey(),
@@ -17,21 +49,145 @@ export const users = pgTable("users", {
 	updated_at: timestamp("updated_now").defaultNow(),
 });
 
-// ? One-to-Many Relationship: Users-Corners
-export const usersRelations = relations(users, ({ many }) => ({
-	corners: many(corners),
-}));
-
 // * Table Schema: Corners
 export const corners = pgTable("corners", {
 	id: serial("id").primaryKey(),
 	user_id: integer("user_id").references(() => users.id),
+	corner_title: varchar("corner_title", { length: 64 }),
+	corner_image: varchar("corner_image", { length: 512 }),
+	corner_theme: cornerThemeEnum("corner_theme"),
+	share_link: varchar("corner_link", { length: 512 }),
 });
 
-// ? Many-to-One Relationship: Users-Corners
-export const cornersRelations = relations(corners, ({ one }) => ({
+// * Table Schema: Primitives
+export const primitives = pgTable("primitives", {
+	id: serial("id").primaryKey(),
+	corner_id: integer("corner_id").references(() => corners.id),
+	primitive_type: primitiveTypeEnum("primitive_type"),
+	x_pos: real("x_pos").default(0),
+	y_pos: real("y_pos").default(0),
+	width: real("width"),
+	height: real("height"),
+});
+
+// * Table Schema: Text_Primitives
+export const textPrimitives = pgTable("text_primitives", {
+	id: serial("id").primaryKey(),
+	primitive_id: integer("primitive_id").references(() => primitives.id),
+	content: text("content").default("text"),
+	colour: varchar("colour", { length: 16 }).default("white"),
+});
+
+// * Table Schema: Shape_Primitives
+export const shapePrimitives = pgTable("shape_primitives", {
+	id: serial("id").primaryKey(),
+	primitive_id: integer("primitive_id").references(() => primitives.id),
+	shape_type: shapeTypeEnum("shape_type"),
+	shape_colour: varchar("shape_colour", { length: 32 }),
+});
+
+// * Table Schema: Image_Primitives
+export const imagePrimitives = pgTable("image_primitives", {
+	id: serial("id").primaryKey(),
+	primitive_id: integer("primitive_id").references(() => primitives.id),
+	image_url: text("image_url"),
+});
+
+// * Table Schema: Link_Primitives
+export const linkPrimitives = pgTable("link_primitives", {
+	id: serial("id").primaryKey(),
+	primitive_id: integer("primitive_id").references(() => primitives.id),
+	title: varchar("title", { length: 256 }),
+	link_url: varchar("link_url", { length: 512 }),
+});
+
+// * Table Schema: Embed_Primitives
+export const embedPrimitives = pgTable("embed_primitives", {
+	id: serial("id").primaryKey(),
+	primitive_id: integer("primitive_id").references(() => primitives.id),
+	embed_type: embedTypeEnum("embed_type"),
+	embed_url: varchar("embed_url", { length: 512 }),
+	// transcription: text("transcription"),
+	// summary: text("summary"),
+});
+
+// TABLE RELATIONSHIPS
+// ---------------------------
+// Users Table Relations
+export const usersRelations = relations(users, ({ many }) => ({
+	// ? One-to-Many Relationship: User-Corners
+	corners: many(corners),
+}));
+
+// Corners Table Relations
+export const cornersRelations = relations(corners, ({ one, many }) => ({
+	// ? Many-to-One Relationship: Corners-User
 	users: one(users, {
 		fields: [corners.user_id],
 		references: [users.id],
 	}),
+	// ? One-to-Many Relationship: Primitives-Corner
+	primitives: many(primitives),
 }));
+
+// Primitives Table Relations
+export const primitivesRelations = relations(primitives, ({ one }) => ({
+	corners: one(corners, {
+		fields: [primitives.id],
+		references: [corners.id],
+	}),
+	textPrimitives: one(textPrimitives),
+	shapePrimitives: one(shapePrimitives),
+	imagePrimitives: one(imagePrimitives),
+	linkPrimitives: one(linkPrimitives),
+	embedPrimitives: one(embedPrimitives),
+}));
+
+// Text_Primitives Table Relations
+export const textPrimitivesRelations = relations(textPrimitives, ({ one }) => ({
+	primitives: one(primitives, {
+		fields: [textPrimitives.id],
+		references: [primitives.id],
+	}),
+}));
+
+// Shape_Primitives Table Relations
+export const shapePrimitivesRelations = relations(
+	shapePrimitives,
+	({ one }) => ({
+		primitives: one(primitives, {
+			fields: [shapePrimitives.id],
+			references: [primitives.id],
+		}),
+	}),
+);
+
+// Image_Primitives Table Relations
+export const imagePrimitivesRelations = relations(
+	imagePrimitives,
+	({ one }) => ({
+		primitives: one(primitives, {
+			fields: [imagePrimitives.id],
+			references: [primitives.id],
+		}),
+	}),
+);
+
+// Link_Primitives Table Relations
+export const linkPrimitivesRelations = relations(linkPrimitives, ({ one }) => ({
+	primitives: one(primitives, {
+		fields: [linkPrimitives.id],
+		references: [primitives.id],
+	}),
+}));
+
+// Embed_Primitives Table Relations
+export const embedPrimitivesRelations = relations(
+	embedPrimitives,
+	({ one }) => ({
+		primitives: one(primitives, {
+			fields: [embedPrimitives.id],
+			references: [primitives.id],
+		}),
+	}),
+);
