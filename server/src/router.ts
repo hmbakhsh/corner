@@ -12,7 +12,11 @@ import {
 	createUserCornerController,
 	getUserCornersController,
 } from "./controllers/cornerControllers";
-import { createPrimitiveController } from "./controllers/primitiveControllers";
+import {
+	createPrimitiveController,
+	getCornerPrimitivesController,
+	updatePrimitiveController,
+} from "./controllers/primitiveControllers";
 
 const router = express.Router();
 
@@ -42,7 +46,10 @@ router.get("/user/:userId/corner/:cornerId/");
 
 // * PRIMITIVES ROUTES
 // Get the primitives for a user's corner
-router.get("/user/:userId/corner/:cornerId/primitives");
+router.get(
+	"/user/:userId/corner/:cornerId/primitives",
+	getCornerPrimitivesController,
+);
 
 // Create a new primitive for a user's corner
 router.post(
@@ -50,7 +57,11 @@ router.post(
 	createPrimitiveController,
 );
 
-// Update primitives for a user's corner
+// Update primitive for a user's corner
+router.patch(
+	"/user/:userId/corner/:cornerId/primitive/:primitiveId",
+	updatePrimitiveController,
+);
 
 // Delete primitives for a user's corner
 
