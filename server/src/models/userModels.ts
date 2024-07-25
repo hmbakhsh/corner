@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import { db } from "..";
 import { users } from "./schema";
 
@@ -10,9 +11,16 @@ export const createUserModel = async (
 	email: string,
 	password_hash: string,
 ) => {
-	return await db.insert(users).values({
-		username,
-		email,
-		password_hash,
-	});
+	return await db
+		.insert(users)
+		.values({
+			username,
+			email,
+			password_hash,
+		})
+		.returning();
+};
+
+export const getUserModel = async (userId: number) => {
+	return await db.select().from(users).where(eq(users.id, userId));
 };
