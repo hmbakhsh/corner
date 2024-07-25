@@ -44,7 +44,7 @@ export const users = pgTable("users", {
 	id: serial("id").primaryKey(),
 	username: varchar("username", { length: 32 }),
 	email: varchar("email", { length: 256 }),
-	password_hash: varchar("password", { length: 256 }),
+	password_hash: varchar("password_hash", { length: 256 }),
 	created_at: timestamp("created_at").defaultNow(),
 	updated_at: timestamp("updated_now").defaultNow(),
 });
@@ -52,12 +52,19 @@ export const users = pgTable("users", {
 // * Table Schema: Corners
 export const corners = pgTable("corners", {
 	id: serial("id").primaryKey(),
-	user_id: integer("user_id").references(() => users.id),
-	corner_title: varchar("corner_title", { length: 64 }),
+	user_id: integer("user_id")
+		.references(() => users.id)
+		.notNull(),
+	corner_title: varchar("corner_title", { length: 64 }).notNull(),
 	corner_image: varchar("corner_image", { length: 512 }),
-	corner_theme: cornerThemeEnum("corner_theme"),
+	corner_theme: cornerThemeEnum("corner_theme").notNull(),
 	share_link: varchar("corner_link", { length: 512 }),
+	created_at: timestamp("created_at").defaultNow(),
+	updated_at: timestamp("updated_now").defaultNow(),
 });
+
+// ! Look more into how this works in Typescript
+export type cornerThemeType = (typeof corners.corner_theme.enumValues)[number];
 
 // * Table Schema: Primitives
 export const primitives = pgTable("primitives", {
@@ -68,6 +75,8 @@ export const primitives = pgTable("primitives", {
 	y_pos: real("y_pos").default(0),
 	width: real("width"),
 	height: real("height"),
+	created_at: timestamp("created_at").defaultNow(),
+	updated_at: timestamp("updated_now").defaultNow(),
 });
 
 // * Table Schema: Text_Primitives
