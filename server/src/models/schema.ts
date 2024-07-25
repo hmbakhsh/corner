@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, type InferInsertModel } from "drizzle-orm";
 import {
 	integer,
 	pgEnum,
@@ -58,7 +58,7 @@ export const corners = pgTable("corners", {
 	corner_title: varchar("corner_title", { length: 64 }).notNull(),
 	corner_image: varchar("corner_image", { length: 512 }),
 	corner_theme: cornerThemeEnum("corner_theme").notNull(),
-	share_link: varchar("corner_link", { length: 512 }),
+	corner_url: varchar("corner_url", { length: 512 }),
 	created_at: timestamp("created_at").defaultNow(),
 	updated_at: timestamp("updated_now").defaultNow(),
 });
@@ -79,13 +79,19 @@ export const primitives = pgTable("primitives", {
 	updated_at: timestamp("updated_now").defaultNow(),
 });
 
+export type primitiveTypeType =
+	(typeof primitives.primitive_type.enumValues)[number];
+
 // * Table Schema: Text_Primitives
 export const textPrimitives = pgTable("text_primitives", {
 	id: serial("id").primaryKey(),
 	primitive_id: integer("primitive_id").references(() => primitives.id),
-	content: text("content").default("text"),
-	colour: varchar("colour", { length: 16 }).default("white"),
+	text_content: text("content").default("text"),
+	text_colour: varchar("colour", { length: 16 }).default("white"),
 });
+
+// ! Figure out how to organise the insert types for tables
+export type newTextPrimitiveType = InferInsertModel<typeof textPrimitives>;
 
 // * Table Schema: Shape_Primitives
 export const shapePrimitives = pgTable("shape_primitives", {
@@ -95,6 +101,8 @@ export const shapePrimitives = pgTable("shape_primitives", {
 	shape_colour: varchar("shape_colour", { length: 32 }),
 });
 
+export type newShapePrimitiveType = InferInsertModel<typeof shapePrimitives>;
+
 // * Table Schema: Image_Primitives
 export const imagePrimitives = pgTable("image_primitives", {
 	id: serial("id").primaryKey(),
@@ -102,13 +110,17 @@ export const imagePrimitives = pgTable("image_primitives", {
 	image_url: text("image_url"),
 });
 
+export type newImagePrimitiveType = InferInsertModel<typeof imagePrimitives>;
+
 // * Table Schema: Link_Primitives
 export const linkPrimitives = pgTable("link_primitives", {
 	id: serial("id").primaryKey(),
 	primitive_id: integer("primitive_id").references(() => primitives.id),
-	title: varchar("title", { length: 256 }),
+	link_title: varchar("title", { length: 256 }),
 	link_url: varchar("link_url", { length: 512 }),
 });
+
+export type newLinkPrimitiveType = InferInsertModel<typeof linkPrimitives>;
 
 // * Table Schema: Embed_Primitives
 export const embedPrimitives = pgTable("embed_primitives", {
@@ -119,6 +131,8 @@ export const embedPrimitives = pgTable("embed_primitives", {
 	// transcription: text("transcription"),
 	// summary: text("summary"),
 });
+
+export type newEmbedPrimitiveType = InferInsertModel<typeof embedPrimitives>;
 
 // TABLE RELATIONSHIPS
 // ---------------------------
