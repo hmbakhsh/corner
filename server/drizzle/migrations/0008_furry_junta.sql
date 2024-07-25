@@ -1,0 +1,1 @@
+ALTER TABLE "corners" RENAME COLUMN "corner_link" TO "corner_url";
