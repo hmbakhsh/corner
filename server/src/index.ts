@@ -8,18 +8,23 @@ import bodyParser from "body-parser";
 const app = express();
 const PORT = 3000;
 
-// Initialise DB Connection (Connection String in ./models/index.ts)
-await client.connect();
-
-// Connect to the database
-const db = drizzle(client, { schema });
-console.log("Database: Successfully connected!");
-
 app.use(bodyParser.json());
 app.use(router);
 
-app.listen(PORT, () => {
-	console.log(`Server listening on http://localhost:${PORT}`);
-});
+// Initialise DB Connection (Connection String in ./models/index.ts)
+await client
+	.connect()
+	.then(() => {
+		console.log("Database: Successfully connected!");
 
+		// Start Express web server
+		app.listen(PORT, () => {
+			console.log(`Server listening on http://localhost:${PORT}`);
+		});
+	})
+	.catch(() => {
+		console.log("Failed to connect to the database!");
+	});
+
+const db = drizzle(client, { schema });
 export { db };
