@@ -4,10 +4,12 @@ import { client } from "./models";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import * as schema from "./models/schema";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 const app = express();
 const PORT = 3000;
 
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(bodyParser.json());
 app.use(router);
 
