@@ -73,8 +73,8 @@ export const primitives = pgTable("primitives", {
 	primitive_type: primitiveTypeEnum("primitive_type"),
 	x_pos: real("x_pos").default(0),
 	y_pos: real("y_pos").default(0),
-	width: real("width"),
-	height: real("height"),
+	width: text("width"),
+	height: text("height"),
 	created_at: timestamp("created_at").defaultNow(),
 	updated_at: timestamp("updated_now").defaultNow(),
 });
@@ -85,7 +85,9 @@ export type primitiveTypeType =
 // * Table Schema: Text_Primitives
 export const textPrimitives = pgTable("text_primitives", {
 	id: serial("id").primaryKey(),
-	primitive_id: integer("primitive_id").references(() => primitives.id),
+	primitive_id: integer("primitive_id").references(() => primitives.id, {
+		onDelete: "cascade",
+	}),
 	text_content: text("content").default("text"),
 	text_colour: varchar("colour", { length: 16 }).default("white"),
 });
@@ -116,7 +118,7 @@ export type newImagePrimitiveType = InferInsertModel<typeof imagePrimitives>;
 export const linkPrimitives = pgTable("link_primitives", {
 	id: serial("id").primaryKey(),
 	primitive_id: integer("primitive_id").references(() => primitives.id),
-	link_title: varchar("title", { length: 256 }),
+	link_title: varchar("link_title", { length: 256 }),
 	link_url: varchar("link_url", { length: 512 }),
 });
 
