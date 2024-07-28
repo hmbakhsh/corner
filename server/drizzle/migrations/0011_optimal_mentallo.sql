@@ -1,0 +1,1 @@
+ALTER TABLE "link_primitives" RENAME COLUMN "title" TO "link_title";

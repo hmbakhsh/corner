@@ -1,0 +1,502 @@
+{
+  "id": "f99e83ae-b324-489e-92cb-beb014cdc4d5",
+  "prevId": "4b9872c6-93fb-4619-ad76-b378620a4c3e",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.corners": {
+      "name": "corners",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corner_title": {
+          "name": "corner_title",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corner_image": {
+          "name": "corner_image",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "corner_theme": {
+          "name": "corner_theme",
+          "type": "corner_theme",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corner_url": {
+          "name": "corner_url",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_now": {
+          "name": "updated_now",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "corners_user_id_users_id_fk": {
+          "name": "corners_user_id_users_id_fk",
+          "tableFrom": "corners",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.embed_primitives": {
+      "name": "embed_primitives",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "primitive_id": {
+          "name": "primitive_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "embed_type": {
+          "name": "embed_type",
+          "type": "embed_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "embed_url": {
+          "name": "embed_url",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "embed_primitives_primitive_id_primitives_id_fk": {
+          "name": "embed_primitives_primitive_id_primitives_id_fk",
+          "tableFrom": "embed_primitives",
+          "tableTo": "primitives",
+          "columnsFrom": [
+            "primitive_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.image_primitives": {
+      "name": "image_primitives",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "primitive_id": {
+          "name": "primitive_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "image_primitives_primitive_id_primitives_id_fk": {
+          "name": "image_primitives_primitive_id_primitives_id_fk",
+          "tableFrom": "image_primitives",
+          "tableTo": "primitives",
+          "columnsFrom": [
+            "primitive_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.link_primitives": {
+      "name": "link_primitives",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "primitive_id": {
+          "name": "primitive_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link_title": {
+          "name": "link_title",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link_url": {
+          "name": "link_url",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "link_primitives_primitive_id_primitives_id_fk": {
+          "name": "link_primitives_primitive_id_primitives_id_fk",
+          "tableFrom": "link_primitives",
+          "tableTo": "primitives",
+          "columnsFrom": [
+            "primitive_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.primitives": {
+      "name": "primitives",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "corner_id": {
+          "name": "corner_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "primitive_type": {
+          "name": "primitive_type",
+          "type": "primitive_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "x_pos": {
+          "name": "x_pos",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "y_pos": {
+          "name": "y_pos",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "width": {
+          "name": "width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "height": {
+          "name": "height",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_now": {
+          "name": "updated_now",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "primitives_corner_id_corners_id_fk": {
+          "name": "primitives_corner_id_corners_id_fk",
+          "tableFrom": "primitives",
+          "tableTo": "corners",
+          "columnsFrom": [
+            "corner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.shape_primitives": {
+      "name": "shape_primitives",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "primitive_id": {
+          "name": "primitive_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "shape_type": {
+          "name": "shape_type",
+          "type": "shape_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "shape_colour": {
+          "name": "shape_colour",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "shape_primitives_primitive_id_primitives_id_fk": {
+          "name": "shape_primitives_primitive_id_primitives_id_fk",
+          "tableFrom": "shape_primitives",
+          "tableTo": "primitives",
+          "columnsFrom": [
+            "primitive_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.text_primitives": {
+      "name": "text_primitives",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "primitive_id": {
+          "name": "primitive_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'text'"
+        },
+        "colour": {
+          "name": "colour",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'white'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "text_primitives_primitive_id_primitives_id_fk": {
+          "name": "text_primitives_primitive_id_primitives_id_fk",
+          "tableFrom": "text_primitives",
+          "tableTo": "primitives",
+          "columnsFrom": [
+            "primitive_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_now": {
+          "name": "updated_now",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.corner_theme": {
+      "name": "corner_theme",
+      "schema": "public",
+      "values": [
+        "pink",
+        "purple",
+        "blue",
+        "green",
+        "grey"
+      ]
+    },
+    "public.embed_type": {
+      "name": "embed_type",
+      "schema": "public",
+      "values": [
+        "youtube",
+        "spotify"
+      ]
+    },
+    "public.primitive_type": {
+      "name": "primitive_type",
+      "schema": "public",
+      "values": [
+        "text",
+        "shape",
+        "image",
+        "link",
+        "embed"
+      ]
+    },
+    "public.shape_type": {
+      "name": "shape_type",
+      "schema": "public",
+      "values": [
+        "rectangle",
+        "circle",
+        "arrow"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

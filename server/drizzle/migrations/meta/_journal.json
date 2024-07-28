@@ -64,6 +64,34 @@
       "when": 1721928478824,
       "tag": "0008_furry_junta",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1722172578071,
+      "tag": "0009_friendly_bruce_banner",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1722176053181,
+      "tag": "0010_daily_scalphunter",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1722177283799,
+      "tag": "0011_optimal_mentallo",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1722183942483,
+      "tag": "0012_shallow_moondragon",
+      "breakpoints": true
     }
   ]
 }
