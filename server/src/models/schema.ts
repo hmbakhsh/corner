@@ -98,7 +98,9 @@ export type newTextPrimitiveType = InferInsertModel<typeof textPrimitives>;
 // * Table Schema: Shape_Primitives
 export const shapePrimitives = pgTable("shape_primitives", {
 	id: serial("id").primaryKey(),
-	primitive_id: integer("primitive_id").references(() => primitives.id),
+	primitive_id: integer("primitive_id").references(() => primitives.id, {
+		onDelete: "cascade",
+	}),
 	shape_type: shapeTypeEnum("shape_type"),
 	shape_colour: varchar("shape_colour", { length: 32 }),
 });
@@ -108,7 +110,9 @@ export type newShapePrimitiveType = InferInsertModel<typeof shapePrimitives>;
 // * Table Schema: Image_Primitives
 export const imagePrimitives = pgTable("image_primitives", {
 	id: serial("id").primaryKey(),
-	primitive_id: integer("primitive_id").references(() => primitives.id),
+	primitive_id: integer("primitive_id").references(() => primitives.id, {
+		onDelete: "cascade",
+	}),
 	image_url: text("image_url"),
 });
 
@@ -117,7 +121,9 @@ export type newImagePrimitiveType = InferInsertModel<typeof imagePrimitives>;
 // * Table Schema: Link_Primitives
 export const linkPrimitives = pgTable("link_primitives", {
 	id: serial("id").primaryKey(),
-	primitive_id: integer("primitive_id").references(() => primitives.id),
+	primitive_id: integer("primitive_id").references(() => primitives.id, {
+		onDelete: "cascade",
+	}),
 	link_title: varchar("link_title", { length: 256 }),
 	link_url: varchar("link_url", { length: 512 }),
 });
@@ -127,7 +133,9 @@ export type newLinkPrimitiveType = InferInsertModel<typeof linkPrimitives>;
 // * Table Schema: Embed_Primitives
 export const embedPrimitives = pgTable("embed_primitives", {
 	id: serial("id").primaryKey(),
-	primitive_id: integer("primitive_id").references(() => primitives.id),
+	primitive_id: integer("primitive_id").references(() => primitives.id, {
+		onDelete: "cascade",
+	}),
 	embed_type: embedTypeEnum("embed_type"),
 	embed_url: varchar("embed_url", { length: 512 }),
 	// transcription: text("transcription"),
