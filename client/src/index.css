@@ -9,10 +9,15 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #585858;
+  /* background-color: #585858; */
+  background-color: #2C2C2C;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 2px white;
 }
