@@ -1,8 +1,10 @@
 
 ## corner - the best way to organise your thoughts and ideas
-[![Video Title](https://img.youtube.com/vi/E--3erAnlaM/0.jpg)](https://www.youtube.com/watch?v=E--3erAnlaM)
 ![corner ui preview](./assets/mock_ui.png)
 we all have way too many links bookmarked away, screenshots lying around in our camera roll & unprocessed thoughts. corner is your all-in-one place to plan your next study session, draw out your next startup or design your new bedroom.
+
+### project demo
+[![corner: project demo](https://img.youtube.com/vi/E--3erAnlaM/0.jpg)](https://www.youtube.com/watch?v=E--3erAnlaM)
 
 
 ### project structure
